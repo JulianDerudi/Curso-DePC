@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inicioJuegoMesa</title>
+</head>
+<body>
+
+    <header>
+        <a href="./juegosDeMesa.html">Volver</a>
+    </header>
+
+    <main>  
+        <h1>Iniciar sesion en el juego de mesa</h1>
+
+        <form>
+            <div>
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="username" required placeholder="Nombre de usuario">
+            </div>
+
+            <div>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required minlength="8" maxlength="12">
+                <button type="button">Mostrar</button>
+            </div>
+
+            <div>
+                <label for="Servidor">Selecciona un Servidor:</label>
+                <select id="Servidor">
+                    <option value="Arg">Argentina</option>
+                    <option value="USA">Estados Unidos</option>
+                    <option value="Ch">China</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="mensaje">Escribe un mensaje de bienvenida:</label>
+                <textarea id="mensaje" rows="4" cols="50" placeholder="Escribe tu mensaje aquí..."></textarea>
+            </div>
+
+            <button type="submit">Enviar</button>
+
+        </form>
+
+    </main>
+</body>
+</html>
