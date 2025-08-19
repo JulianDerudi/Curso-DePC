@@ -1,0 +1,52 @@
+/*    ##  JERARQUIA EN CSS  ##                          */
+/*                                                      */
+/*    1- !important                                     */
+/*    2- inline style                                   */
+/*    3- selector de id                                 */
+/*    4- selector de clase                              */
+/*    5- selector de elementos                          */
+/*    6- selector universal                             */
+/*                                                      */
+/* "usar solo los ultimos 3 (salvo en caso especifico)" */
+
+/* Estilos de CSS */
+/* selector universal */
+*{
+    font-family: arial;
+}
+
+/* selector de id */
+#titulo {
+    color: red;
+    font-size: 50px;
+    text-align: center;
+}
+
+/* selector de elementos */
+h1 {
+    color: aqua;
+    font-size: 70px;
+}
+
+/* selector de clases */
+.boton{
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(255, 0, 0);
+}
+
+.boton-principal {
+    color: rgb(255, 255, 255);
+    background-color: blue;
+    padding: 10px 20px;
+    
+}
+
+.boton-secundario {
+    background-color: pink;
+    padding: 10px 30px;
+}  
+
+/*.boton-secundario y principal ganan por cascada (estan escritos mas abajo)*/
