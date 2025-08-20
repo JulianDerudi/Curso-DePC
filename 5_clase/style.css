@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap');
+/* #########  CLASE 5  ######### */
+
 /*    ##  JERARQUIA EN CSS  ##                          */
 /*                                                      */
 /*    1- !important                                     */
@@ -12,41 +15,87 @@
 /* Estilos de CSS */
 /* selector universal */
 *{
-    font-family: arial;
+    font-family: arial; /*fuente*/
 }
 
 /* selector de id */
 #titulo {
-    color: red;
-    font-size: 50px;
-    text-align: center;
+    color: red;       /*color del texto*/
+    font-size: 50px;    /*tamaño del texto*/
+    text-align: center; /*alineacion del texto*/
 }
 
 /* selector de elementos */
 h1 {
-    color: aqua;
-    font-size: 70px;
+    color: aqua;    /*color del texto*/
+    font-size: 70px;  /*tamaño del texto*/
 }
 
 /* selector de clases */
 .boton{
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: rgb(255, 0, 0);
+    color: white;        /*color del texto*/
+    border: none;          /*sin borde*/
+    border-radius: 5px;    /*bordes redondeados*/
+    cursor: pointer;       /*cursor de mano*/
+    background-color: rgb(255, 0, 0);  /*color de fondo*/
 }
 
 .boton-principal {
-    color: rgb(255, 255, 255);
-    background-color: blue;
-    padding: 10px 20px;
+    color: rgb(255, 255, 255); /*color del texto*/
+    background-color: blue;    /*color de fondo*/
+    padding: 10px 20px;          /*espaciado interno*/
     
 }
 
 .boton-secundario {
-    background-color: pink;
-    padding: 10px 30px;
+    background-color: pink; /*color de fondo*/
+    padding: 10px 30px;       /*espaciado interno*/
 }  
 
 /*.boton-secundario y principal ganan por cascada (estan escritos mas abajo)*/
+
+
+
+
+
+
+/* #########  CLASE 6  ######### */
+
+/* NORMALIZAR */
+*{
+    box-sizing: border-box;   /*incluye el padding y el borde en el ancho y alto (hay que usarlo siempre)*/
+    padding: 0;               /*elimina el padding por defecto de los navegadores*/
+    margin: 0;               /*elimina el margin por defecto de los navegadores*/
+}
+
+.caja{
+    width: 200px;                /*ancho de la content-box*/
+    height: 200px;               /*alto de la content-box*/
+    background-color: green;   /*color de fondo*/
+    overflow-x: auto;            /*barra de desplazamiento horizontal*/
+    border: 2px solid black;   /*border-box*/
+    border-right: 3px dashed yellow; /*borde derecho de la border-box*/
+    padding: 20px;               /*espaciado interno de la content-box*/
+    box-shadow: 15px 15px 10px 0px rgba(0, 0, 0, 0.5); /*sombra de la caja (x,y,difuminado,tamaño,color)*/
+}
+
+.parrafo{
+    text-align: justify;         /*alineacion del texto*/  
+    font-family: "Edu NSW ACT Cursive", cursive; /*fuente del texto*/
+    /* width: 230px; */          /*ancho*/
+}
+
+/* dar ancho y alto al contenido solo es valido para etiquetas block o inline-block
+   las etiquetas tienen un display que puede ser (block, inline o inline-block) */
+
+/*  
+inline: (ej. <span>)                                        
+    - no se le puede modificar ancho ni alto 
+    - se escribe uno al lado del otro        
+block: (ej. <div>)                            
+    - se le puede definir ancho y alto       
+    - se colocan uno debajo del otro         
+inline-block: (ej. <button>)
+    - se le puede definir ancho y alto       
+    - se colocan uno al lado del otro
+*/
