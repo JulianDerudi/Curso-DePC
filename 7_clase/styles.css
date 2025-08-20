@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contenedor{ /* contenedor padre */
+    width: 100%;
+    height: 120px;
+    background-color: blueviolet;
+    display: flex; /* ahora contenedor es un elemento flexible */
+    /* 
+    se habilitaran las propiedades flexibles: (por defecto tienen los siguientes valores)  
+        - flex-direction: row          -> direccion del flexbox (column o row)            
+        - gap: 0px                     -> (espacio entre los hijos)                        
+        - justify-content: flex-start          
+        - aling-items: flex-start           
+        
+    justify-content y alling-items dependen de la dirección del flexbox 
+        - si flex-direction: row
+            - justify-content:  -> ajusta en el eje x (horizontal)
+            - aling-items:     -> ajusta en el eje y (vertical)
+        - si flex-direction: column
+            - justify-content:  -> ajusta en el eje y (vertical)
+            - aling-items:     -> ajusta en el eje x (horizontal)
+    */
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+button{
+    width: 150px;
+}
+
+nav{
+    width: 100%;
+    height: 50px;
+    background-color: write;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/*
+justify-content: (si sobra espacio en el eje principal)
+    - space-between -> espacio entre los elementos (el primero al inicio y el ultimo al final)
+    - space-evenly  -> espacio igual entre los elementos (el primero y el ultimo pegan con los bordes)
+    - space-around  -> espacio alrededor de los elementos (el primero y el ultimo no pegan con los bordes)
+
+*/
+
+header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
