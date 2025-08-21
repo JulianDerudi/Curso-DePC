@@ -33,6 +33,7 @@
 
 button{
     width: 150px;
+    
 }
 
 nav{
@@ -58,4 +59,71 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 0 24px;
+}
+
+
+/* ############### EJERCICIO HOSTINGER ####################### */
+.migracion{
+    width: 100%;
+    height: 540px;
+    background-color: #24105f;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.titulo{
+    width: 90%;
+    text-align: center;
+    color: white;
+}
+
+.texto{
+    width: 70%;
+    text-align: center;
+    color: white;
+}
+
+.cajas{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.caja{
+    width: 300px;
+    height: 230px;
+    background-color: #2f1c6a;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    gap : 15px;
+    padding: 20px;
+    color: white;
+    padding: 20px;
+}
+
+.caja_imagen{
+    width: 40px;
+    height: 40px;
+}
+
+.caja_texto{
+    color: white;
+}
+
+.boton{
+    width: 140px;
+    height: 40px;
+    background-color: #5025d1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
 }
