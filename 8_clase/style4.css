@@ -1,0 +1,60 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+/* IMPORT DEL BUSCADOR (DE ICONOS) pagina: https://icons.getbootstrap.com/ */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ###################### buscador ###################### */
+/* https://icons.getbootstrap.com/  (pagina para importar iconos) */
+
+:root{
+    --primary-color: #c3c544;
+    --gray-500: #555c63;
+    --gray-400: #e9ecef;
+}
+
+.container{
+    height: 500vh;
+    background-color: rgb(176, 207, 39);
+}
+
+header{
+    background-color: var(--primary-color);
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* el sticky sigue a la pantalla pero se reserva su lugar, por eso se usa mucho en headers*/
+    position: sticky;
+    top: 0px;
+}
+
+form {
+    width: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+form input{
+    width: 100%;
+    padding: 8px 16px;
+}
+
+button{
+    position: absolute;
+    right: 0px;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid var(--gray-400);
+    width: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+button .bi-search{
+    color: var(--primary-color);
+}
