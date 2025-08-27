@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(146, 23, 140);
+}
+
+.banner{
+    width: 350px;
+    background-color: red;
+    color: turquoise;
+    border-radius: 4px;
+    text-shadow: 0 0 3px write;
+    padding: 16px;
+    font-size: 18px;
+    box-shadow: 0 0 30px write;
+}
+
+/* a partir de 768px para abajo va a ser este estilo */
+@media screen and (max-width: 768px){
+    .banner{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 368px){
+    .banner{
+        display: block;
+    }
+}

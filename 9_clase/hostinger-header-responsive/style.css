@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 32px;
+    background-color: #f8f9fa;
+}
+
+.header__left-content{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.header__left-content__logo-container{
+    display: flex;
+    
+}
+
+.header__right-content{
+
+}
+
+.header__right-content__language-button{
+
+}
+
+.btn-primary{
+
+}
