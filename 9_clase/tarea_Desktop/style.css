@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ############### EJERCICIO HOSTINGER ####################### */
+.migracion{
+    width: 100%;
+    height: 540px;
+    background-color: #1f1346;;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+@media screen and (max-width: 979px){
+    .migracion{
+        height: auto;
+        padding: 32px;
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .migracion{
+        padding: 32px;
+        gap: 20px;
+    }
+}
+
+.titulo{
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.texto{
+    width: 80%;
+    text-align: center;
+    color: white;
+}
+
+.cajas{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 979px){
+    .cajas{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+.caja{
+    width: 300px;
+    height: 230px;
+    background-color: #2f1c6a;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    gap : 15px;
+    padding: 20px;
+    color: white;
+    padding: 20px;
+}
+
+@media screen and (max-width: 979px){
+    .caja{
+        width: 700px;
+        height: 200px;
+        padding: 32px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .caja{
+        width: 500px;
+        height: 200px;
+    }
+}
+@media screen and (max-width: 480px){
+    .caja{
+        width: auto;
+        height: auto;
+    }
+}
+
+.caja_imagen{
+    width: 40px;
+    height: 40px;
+}
+
+.caja_texto{
+    color: white;
+}
+
+.boton{
+    width: 140px;
+    height: 40px;
+    background-color: #5025d1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
