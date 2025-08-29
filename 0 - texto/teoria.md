@@ -13,6 +13,7 @@
 https://developer.mozilla.org/en-US/
 
 
+
 ## ############# ##
 ## Clase 2: HTML #########################################################################################################
 ## ############# ##
@@ -21,6 +22,7 @@ https://developer.mozilla.org/en-US/
 
 <!-- Enlace -->
 <a href=""></a>
+
 
 
 ## ############################ ##
@@ -72,6 +74,7 @@ https://developer.mozilla.org/en-US/
 <!-- Boton de enviar, cuando un boton esta dentro de un form el navegador por defecto interpretara que es un boton de enviar -->
 <button type="submit">Enviar</button>
 </form>
+
 
 
 ## ##################### ##
@@ -156,9 +159,10 @@ $ git status  $
 * line-height: <!-- Define la altura de línea (espacio entre renglones). Valores comunes: normal, 24px, 150% -->
 
 
-## ############ ##
-## Clase 6: CSS ##########################################################################################################
-## ############ ##
+
+## ################ ##
+## Clase 6: CSS BOX ######################################################################################################
+## ################ ##
 # BOX MODEL #
 * padding:  <!-- espaciado interno (-left, -top, -right, -bottom) -->
 * margin:  <!-- espaciado externo, desde el borde de la caja hacia afuera -->
@@ -186,6 +190,7 @@ https://fonts.google.com/
 
 ## pagina pare crear box shadow ## 
 https://cssgenerator.org/
+
 
 
 ## #################### ##
@@ -223,10 +228,29 @@ inline-block: (ej. <button>)
     - se colocan uno al lado del otro
 
 
+
 ## ############################### ##
 ## Clase 8: CSS Flexbox + Position #######################################################################################
 ## ############################### ##
+# position relative
+"permite ubicarlo usando de referencia su posicion (mantiene su posicion)"
 
+# position absolute
+"permite ubicarlo usando de referencia su contenedor (padre), pero no mantiene su posicion"
+
+# relative + absolute (ideal para un buscador, por ej: la lupita)
+"se usa para colocar un elemento dentro de otro controladamente"
+"contenedor en relative y elemento interno en absolute"
+![alt text](relative+absolute.png)
+
+# position fixed (ideal para algo como preguntale a kodee)
+"permite ubicarlo en cualquier parte de la pantalla, sigue el scroll (no mantiene su posicion)"
+
+# position sticky (ideal para header)
+"permite ubicarlo en cualquier parte de la pantalla, sigue el scroll (mantiene su posicion)"
+
+# posiciones
+top - right - bottom - left 
 
 
 
@@ -245,6 +269,20 @@ pantalla dependiendo la resolucion.
 en casi todos los casos conviene Mobile first solo en casos de 
 paginas de trabajo/inversiones/gestiones conviene desktop first
 
+# ejemplo (que deje de existir un banner)
+@media screen and (max-width: 768px){
+    .banner{
+        display: none;
+    }
+}
+
+# En CSS, usar medidas relativas permite que los elementos se adapten al tamaño de la pantalla, haciendo el diseño más responsivo.
+* % (porcentaje): relativo al contenedor padre. Por ejemplo, width: 50% ocupa la mitad del ancho del contenedor.
+* vw (viewport width): relativo al ancho de la ventana del navegador. 10vw equivale al 10% del ancho total de la pantalla.
+* vh (viewport height): relativo a la altura de la ventana. 20vh equivale al 20% de la altura de la pantalla.
+* em: unidad relativa al tamaño de fuente del elemento padre.
+* rem: unidad relativa al tamaño de fuente del elemento raíz (<html>).
+
 # Tarea
 hacer ejercicio de clase 7 utilizando Destock First y despues Mobile First
 medidas a tener en cuenta: 320px a 2000px
@@ -259,13 +297,104 @@ https://responsively.app/
 ## Clase 10: CSS Mediaqueries + Mobile First #############################################################################
 ## ######################################### ##
 
+# variables
+:root{
+    --primary-color: black;
+    --second-color: write;
+}
 
+para usarlos: var(--primary-color)
+
+# ejemplo
+@media screen and (min-width: 768px){
+
+}
+
+## enfoque mas de reutilizacion
+# clases utilitarias (muy poco expecificas)
+.text-center{
+    text-aling: center;
+}
+
+# clases genericas
+.title{
+    font-size: 24px;
+    color: black;
+}
+
+# separar en distintos archivos de css (importar dentro de style.css)
+@import url ('./components.css')
+@import url ('./utilities.css')
+@import url ('./global.css')
 
 
 ## ##################################################### ##
 ## Clase 11: Animaciones + Transiciones + V0 chat vercel #################################################################
 ## ##################################################### ##
+# Transicion:hover
+"cuando pasas el cursor por encima"
 
+# ejemplo
+button {
+    transition: box-shadow 500ms ease;
+}
+
+button:hover{
+    box-shadow: 0 8px 20px black;
+}
+
+# transiciones
+![alt text](transiciones.png)
+
+# transform:
+* translate(x,y) -> mueve el elemento en el eje X o Y
+* scale(x,y) -> agranda o achica un elemento
+* rotate(deg) -> rota el elemento segun los grados indicados
+* skew(x,y) -> inclina el elemento
+
+# transiciones + transform
+button {
+    transition: transform 500ms ease;
+}
+
+button:hover{
+    transform: scale(1.2) rotate(10deg);
+}
+
+# animaciones
+"como una transicion pero no hace falta posicionar el cursor encima"
+
+# se definen a traves de fotogramas claves (@keyframes)
+@keyframe blink{
+    0% { opacity: 1 }
+    50% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+.blink {
+    font-size: 24px;
+    font-weigth: bold;
+    animation: blink 1s infinite; <!-- uso de la animacion -->
+}
+
+# ejemplo spiner
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+# V0.dev by Vercel
+"inteligencia articial que permite crear interfaces de usuario"
+https://v0.app/
 
 
 
