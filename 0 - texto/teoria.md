@@ -252,7 +252,7 @@ inline-block: (ej. <button>)
 # posiciones
 top - right - bottom - left 
 
-
+# z-index: 1; (controla la superposición, mayor valor está encima)
 
 ## ############################################################# ##
 ## Clase 9: CSS Mediaqueries y responsive design (Desktop First) #########################################################
@@ -389,12 +389,14 @@ button:hover{
   border: 6px solid #ddd;
   border-top: 6px solid #3498db;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite; <!-- name timing  -->
 }
 
 # V0.dev by Vercel
-"inteligencia articial que permite crear interfaces de usuario"
+"inteligencia articial que permite crear interfaces de usuario (genial para presentar una demo o para arrancar)"
 https://v0.app/
+
+de momento aclarar que no use React/next, nada de funcionalidad, no use javascript, ni tampoco frameworks de css
 
 
 
@@ -409,4 +411,12 @@ https://v0.app/
 ## Clase 13: TP integrador + Figma #######################################################################################
 ## ############################### ##
 
+# pagina de figma
+https://www.figma.com/design/C902J8TvjsKIvdZoA0jU95/Portfolio?node-id=2-9914&t=iX9KuR4J9wPgkJEv-1
+
+# github con algunos modelos de portafolios
+https://github.com/ivanogimenez/portfolio
+
+# Pagina con iconos piolas
+https://icons.getbootstrap.com/
 
