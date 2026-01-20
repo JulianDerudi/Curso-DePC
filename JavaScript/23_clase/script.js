@@ -1,4 +1,5 @@
-// EJERCICIO: TWEETS
+document;
+// EJERCICIO: TWEET
 const listatweets = document.getElementById("tweets"); //traigo el contenedor con ese ID como para modificarlo
 
 let tweets = [
