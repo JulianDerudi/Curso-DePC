@@ -24,14 +24,14 @@ async function fetchProducts() {
         const response = await fetch(API_URL);
 
         if (!response.ok) {
-            throw new Error('Error en la respuesta del servidor');
+            throw new Error('Server response error status: ' + response.status);
         }
 
         const data = await response.json();
         setProducts(data.products);
 
     } catch (error) {
-        setError('Error al cargar productos: ' + error.message);
+        setError('Error loading products: ' + error.message);
         catalog_container_html.innerHTML = "<p>Error loading products. Please try again later.</p>";
     
     } finally {
@@ -44,21 +44,19 @@ async function fetchProducts() {
 
 // Renderizados
 function renderProducts() {
-    let catalog_render_str = '<h2>Catálogo de Productos</h2>';
+    let catalog_render_str = '<h2>Product Catalog</h2>';
     
     for(let product of products_state){
-        if(product.stock === 0){
-            continue
-        }
+        
         catalog_render_str += `
             <div id="${product.id}">
                 <img src="${product.images[0]}" alt="${product.title}" />
                 <div class="info-product-container">
                     <h3>${product.title}</h3>
-                    <span>Precio unitario: $${product.price}</span>
-                    <span>Unidades disponibles: ${product.stock}</span>
+                    <span>Price: $${product.price}</span>
+                    <span>Available units: ${product.stock}</span>
                 </div>
-                <button class='btn-add-cart' data-add_id='${product.id}'>Agregar Carrito</button>
+                <button class='btn-add-cart' data-add_id='${product.id}'>Add Cart</button>
             </div>
         `
     }
@@ -87,20 +85,24 @@ function renderCart() {
             <div id="${product.id}">
                 <div class="info-product-container">
                     <h3>${product.title}</h3>
-                    <span>Precio unitario: $${product.price}</span>
-                    <span>Precio: $${product.price * product.quantity}</span> 
-                <div>
+                    <span>Unit price: $${product.price}</span>
+                    <span>Total Price: $${(product.price * product.quantity).toFixed(2)}</span> 
+                </div>
                 <div class="btn-container">
                     <button class='btn-increase' data-increase_id='${product.id}'>+</button>
                     <span class='quantity'>${product.quantity}</span>
                     <button class='btn-decrease' data-decrease_id='${product.id}'>-</button>
                 </div>
-                <button class='btn-remove' data-remove_id='${product.id}'>Quitar</button>
+                <button class='btn-remove' data-remove_id='${product.id}'>Remove</button>
             </div>
         `
     }
 
-    cart_render_str += `<h3>Total: $${total_state}</h3>`;
+    cart_render_str += `
+        <h3>Total to pay: $${total_state}</h3>
+        <button id="btn-clear-cart">Clear Cart</button>
+        <button id="btn-checkout">Checkout</button>
+    `;
 
     cart_container_html.innerHTML = cart_render_str;
 
@@ -129,11 +131,36 @@ function renderCart() {
             decreaseQuantityToCart(productId);
         });
     });
+
+    // Agregar event listener al boton "Vaciar Carrito"
+    const clearCartButton = document.getElementById('btn-clear-cart');
+    clearCartButton.addEventListener('click', () => {
+        cart_state.forEach(product => {
+            increaseStockInCatalog(product.id, product.quantity);
+        });
+        setCart([]);
+        setTotal(0);
+        renderProducts();
+    });
+
+    // Agregar event listener al boton "Finalizar Compra"
+    const checkoutButton = document.getElementById('btn-checkout');
+    checkoutButton.addEventListener('click', () => {
+        if(cart_state.length === 0){
+            alert("Your cart is empty. Please add items before completing your purchase.");
+            return;
+        }
+        alert(`Purchase completed. Total to pay: $${total_state}`);
+        setCart([]);
+        setTotal(0);
+        renderProducts();
+    });
 }
 function renderError() {
     if (error_state) {
         error_container_html.innerHTML = `<p>${error_state}</p>`;
         console.error("Error:", error_state);
+        alert(error_state);
     }
 }
 function renderLoadingProducts() {
@@ -160,6 +187,7 @@ function setError(errorMessage) {
 }
 function setTotal(newTotal) {
     total_state = newTotal;
+    renderCart();
 }
 function setCart(newCart) {
     cart_state = newCart;
@@ -167,46 +195,18 @@ function setCart(newCart) {
 }
 
 
-
-// Agregar al carrito de compras
-function addToCart(productId) {
-    const productInCart = findProductFromCartById(productId);
-
-    // Si ya está en el carrito, aumentar cantidad
-    if (productInCart) {
-        productInCart.quantity += 1;
-    } else { // Si no está, agregarlo con cantidad 1
-        const productFromCatalog = findProductFromCatalogById(productId);
-        if (productFromCatalog) {
-            cart_state.push({ ...productFromCatalog, quantity: 1 });
-        } else {
-            setError("Producto no encontrado en el catálogo");
-        }
-    }
-    // Quitarle uno al stock del catálogo
-    decreaseStockInCatalog(productId);
-
-    calculateTotal();
-    renderCart();
-}
-
-
-
-// Funciones Auxiliares
-function calculateTotal() {
-    const total_state = cart_state.reduce((acc, product) => acc + (product.price * product.quantity), 0);
-    setTotal(total_state);
-}
+// Logica del catalogo
 function decreaseStockInCatalog(productId) {
     const productFromCatalog = findProductFromCatalogById(productId);
     if (productFromCatalog && productFromCatalog.stock > 1) {
         productFromCatalog.stock -= 1;
     } else if (productFromCatalog && productFromCatalog.stock === 1) {
         productFromCatalog.stock -= 1;
-        renderProducts();
+        
     } else {
-        setError("No hay stock disponible para este producto");
+        setError("This product is out of stock.");
     }
+    renderProducts();
 }
 // Usar solo en el caso de decrementar cantidad en el carrito
 function increaseStockInCatalog(productId, quantityToAdd = 1) {
@@ -214,16 +214,85 @@ function increaseStockInCatalog(productId, quantityToAdd = 1) {
     if (productFromCatalog) {
         productFromCatalog.stock += quantityToAdd;
     } else {
-        setError(`Producto con ID[${productId}] no encontrado en el catálogo: no se puede aumentar stock`);
+            setError(`Product with ID[${productId}] not found in the catalog: cannot increase stock`);
+    }
+}
+function findProductFromCatalogById(id) {
+    return products_state.find((product) => product.id === id);
+}
+
+
+
+
+
+// Logica del carrito
+function addToCart(productId) {
+    const productInCart = findProductFromCartById(productId);
+    const productFromCatalog = findProductFromCatalogById(productId);
+
+    // Si ya está en el carrito, aumentar cantidad
+    if (productInCart && productFromCatalog && productFromCatalog.stock > 0) {
+        productInCart.quantity += 1;
+        decreaseStockInCatalog(productId);
+    } else { // Si no está, agregarlo con cantidad 1
+        if (productFromCatalog && productFromCatalog.stock > 0) {
+            cart_state.push({ ...productFromCatalog, quantity: 1 });
+            decreaseStockInCatalog(productId);
+        } else {
+            setError("This product is out of stock.");
+        }
+    }
+
+
+    calculateTotal();
+    renderCart();
+}
+function removeFromCart(productId) {
+    const productInCart = findProductFromCartById(productId);
+    if (productInCart) {
+        increaseStockInCatalog(productId, productInCart.quantity);
+        cart_state = cart_state.filter((product) => product.id !== productId);
+        calculateTotal();
+        renderCart();
+        renderProducts();
+    }
+}
+function increaseQuantityToCart(productId) {
+    const productInCart = findProductFromCartById(productId);
+    const productFromCatalog = findProductFromCatalogById(productId);
+    if (productInCart && productFromCatalog && productFromCatalog.stock > 0) {
+        productInCart.quantity += 1;
+        decreaseStockInCatalog(productId);
+        calculateTotal();
+        renderCart();
+        renderProducts();
+    } else {
+        setError("This product is out of stock.");
+    }
+}
+function decreaseQuantityToCart(productId) {
+    const productInCart = findProductFromCartById(productId);
+    if (productInCart && productInCart.quantity > 0) {
+        productInCart.quantity -= 1;
+        increaseStockInCatalog(productId);
+        calculateTotal();
+        renderCart();
+        renderProducts();
+    }
+    if (productInCart && productInCart.quantity === 0) {
+        removeFromCart(productId);
     }
 }
 function findProductFromCartById(id) {
     return cart_state.find((product) => product.id === id);
 }
-
-function findProductFromCatalogById(id) {
-    return products_state.find((product) => product.id === id);
+function calculateTotal() {
+    const total_state = cart_state.reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    //solo con dos decimales
+    const totalWithTwoDecimals = parseFloat(total_state.toFixed(2));
+    setTotal(totalWithTwoDecimals);
 }
+
 
 
 
@@ -232,10 +301,3 @@ function findProductFromCatalogById(id) {
 fetchProducts();
 
 
-
-
-
-// COSAS para no olvidarse:
-// AL INCREMENTAR CON EL BOTON DEL CARRITO, QUITARLE STOCK AL PRODUCTO EN EL CATALOGO
-// AL DECREMENTAR DEL CARRITO, AGREGARLE STOCK AL PRODUCTO DEL CATALOGO
-// AL QUITAR DEL CARRITO, AGREGARLE LA CANTIDAD AL STOCK DEL CATALOGO
