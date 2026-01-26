@@ -11,7 +11,6 @@ let total_state = 0; // total del carrito de compras
 // Referencias al html
 const catalog_container_html = document.getElementById("catalog-container");
 const cart_container_html = document.getElementById("cart-products-container");
-const error_container_html = document.getElementById("error-container");
 
 
 
@@ -44,22 +43,31 @@ async function fetchProducts() {
 
 // Renderizados
 function renderProducts() {
-    let catalog_render_str = '<h2>Product Catalog</h2>';
+    let catalog_render_str = `
+        <div class="catalog-header">
+            <h2>Product Catalog</h2>
+        </div>
+        <div class="products-container">
+    `;
     
     for(let product of products_state){
         
         catalog_render_str += `
-            <div id="${product.id}">
+            <div class="product-card" id="${product.id}">
                 <img src="${product.images[0]}" alt="${product.title}" />
                 <div class="info-product-container">
                     <h3>${product.title}</h3>
                     <span>Price: $${product.price}</span>
                     <span>Available units: ${product.stock}</span>
                 </div>
-                <button class='btn-add-cart' data-add_id='${product.id}'>Add Cart</button>
+                <button type="button" class='btn-add-cart' data-add_id='${product.id}'>Add Cart</button>
             </div>
         `
     }
+
+    catalog_render_str += `
+        </div>
+    `;
 
     catalog_container_html.innerHTML = catalog_render_str;
 
@@ -76,35 +84,49 @@ function renderProducts() {
 
 }
 function renderCart() {
-    let cart_render_str = '<h2>Carrito de Compras</h2>';
+    const currentScrollTop = cart_container_html.querySelector('.cart-items-container')?.scrollTop || 0;
+    let cart_render_str = `
+        <h2>Shopping Cart</h2>
+        <div class="cart-items-container">
+    `;
     for(let product of cart_state){
         if(product.quantity === 0){
             continue;
         }
         cart_render_str += `
-            <div id="${product.id}">
-                <div class="info-product-container">
+            <div class="cart-item" id="${product.id}">
+                <div class="info-cart-product-container">
                     <h3>${product.title}</h3>
                     <span>Unit price: $${product.price}</span>
                     <span>Total Price: $${(product.price * product.quantity).toFixed(2)}</span> 
                 </div>
-                <div class="btn-container">
-                    <button class='btn-increase' data-increase_id='${product.id}'>+</button>
-                    <span class='quantity'>${product.quantity}</span>
-                    <button class='btn-decrease' data-decrease_id='${product.id}'>-</button>
+                <div class="product-actions-container">
+                    <div class="btn-container">
+                        <button type="button" class='btn-increase' data-increase_id='${product.id}'>+</button>
+                        <span class='quantity'>${product.quantity}</span>
+                        <button type="button" class='btn-decrease' data-decrease_id='${product.id}'>-</button>
+                    </div>
+                    <button type="button" class='btn-remove' data-remove_id='${product.id}'>Remove</button>
                 </div>
-                <button class='btn-remove' data-remove_id='${product.id}'>Remove</button>
             </div>
         `
     }
 
     cart_render_str += `
+        </div>
         <h3>Total to pay: $${total_state}</h3>
-        <button id="btn-clear-cart">Clear Cart</button>
-        <button id="btn-checkout">Checkout</button>
+        <div class="cart-actions-container">
+            <button type="button" class="btn-clear-cart" id="btn-clear-cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                </svg>
+            </button>
+            <button type="button" class="btn-checkout" id="btn-checkout">Checkout</button>
+        </div>  
     `;
 
     cart_container_html.innerHTML = cart_render_str;
+    cart_container_html.querySelector('.cart-items-container').scrollTop = currentScrollTop;
 
     // Agregar event listeners a los botones "Quitar", "Aumentar" y "Disminuir"
     const removeButtons = document.querySelectorAll('.btn-remove');
@@ -158,7 +180,6 @@ function renderCart() {
 }
 function renderError() {
     if (error_state) {
-        error_container_html.innerHTML = `<p>${error_state}</p>`;
         console.error("Error:", error_state);
         alert(error_state);
     }
@@ -206,7 +227,7 @@ function decreaseStockInCatalog(productId) {
     } else {
         setError("This product is out of stock.");
     }
-    renderProducts();
+    updateProductStockInDOM(productId);
 }
 // Usar solo en el caso de decrementar cantidad en el carrito
 function increaseStockInCatalog(productId, quantityToAdd = 1) {
@@ -219,6 +240,19 @@ function increaseStockInCatalog(productId, quantityToAdd = 1) {
 }
 function findProductFromCatalogById(id) {
     return products_state.find((product) => product.id === id);
+}
+
+function updateProductStockInDOM(productId) {
+    const productFromCatalog = findProductFromCatalogById(productId);
+    if (productFromCatalog) {
+        const productCard = document.getElementById(productId);
+        if (productCard) {
+            const stockSpan = productCard.querySelector('.info-product-container span:last-child');
+            if (stockSpan) {
+                stockSpan.textContent = `Available units: ${productFromCatalog.stock}`;
+            }
+        }
+    }
 }
 
 
@@ -254,7 +288,6 @@ function removeFromCart(productId) {
         cart_state = cart_state.filter((product) => product.id !== productId);
         calculateTotal();
         renderCart();
-        renderProducts();
     }
 }
 function increaseQuantityToCart(productId) {
@@ -265,7 +298,6 @@ function increaseQuantityToCart(productId) {
         decreaseStockInCatalog(productId);
         calculateTotal();
         renderCart();
-        renderProducts();
     } else {
         setError("This product is out of stock.");
     }
@@ -277,7 +309,6 @@ function decreaseQuantityToCart(productId) {
         increaseStockInCatalog(productId);
         calculateTotal();
         renderCart();
-        renderProducts();
     }
     if (productInCart && productInCart.quantity === 0) {
         removeFromCart(productId);
@@ -299,5 +330,5 @@ function calculateTotal() {
 
 // Inicialización de la aplicación
 fetchProducts();
-
+renderCart();
 
