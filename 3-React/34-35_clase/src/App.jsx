@@ -1,6 +1,6 @@
 import Contador from "./Components/Contador/Contador"
 import ParrafoExtendible from "./Components/ParrafoExtendible/ParrafoExtendible"
-
+import PostList from "./Components/PostList/PostList"
 
 function App() {
 
@@ -23,6 +23,7 @@ function App() {
           max={11}
           initial={6}
         />
+        <PostList/>
     </div>
   )
 }
