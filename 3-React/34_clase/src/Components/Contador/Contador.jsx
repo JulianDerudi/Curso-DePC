@@ -14,34 +14,34 @@
 import { useState } from "react";
 
 
-function Contador() {
-    const stateContador = useState(1);
+function Contador(props) {
+    const stateContador = useState(props.initial);
     const contadorValue = stateContador[0];
     const setContador = stateContador[1];
 
     function decrementContador(){
-        if(contadorValue>1){
+        if(contadorValue>props.min){
             const nuevoContador = contadorValue - 1;
             setContador(nuevoContador)
         } else {
-            alert("no podes tener menos de uno")
+            alert(`no podes tener menos de ${props.min}`)
         }
     }
 
     function incrementContador() {
-        if(contadorValue < 10) {
+        if(contadorValue < props.max) {
             const nuevoContador = contadorValue + 1;
             setContador(nuevoContador)
         } else {
-            alert("llegaste al limite")
+            alert(`llegaste al limite: ${props.max}`)
         }
     }
 
     return (
         <div>
-            <button onClick={decrementContador}>Decrementar</button>
+            <button onClick={decrementContador} disabled={contadorValue <= props.min}>Decrementar</button>
             <span>{contadorValue}</span>
-            <button onClick={incrementContador}>Incrementar</button>
+            <button onClick={incrementContador} disabled={contadorValue >= props.max}>Incrementar</button>
         </div>
     )
 }

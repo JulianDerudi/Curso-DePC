@@ -13,7 +13,16 @@ function App() {
             } 
           limite_palabras={5}
         />
-        <Contador />
+        <Contador 
+          min={0}
+          max={25}
+          initial={5}
+        />
+        <Contador 
+          min={-2}
+          max={11}
+          initial={6}
+        />
     </div>
   )
 }
