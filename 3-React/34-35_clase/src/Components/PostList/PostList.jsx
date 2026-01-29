@@ -1,23 +1,33 @@
+import React, { useEffect, useState } from 'react'
+import { getPosts } from '../../services/postServices'
+import usePosts from '../../hooks/usePosts'
+
+
 
 export default function PostList() {
-    /*
-        Crear la funcion getPosts
-        Debera hacer un fetch con method GET a https://jsonplaceholder.typicode.com/posts
-        Mostrar por consola el resultado de la API
-     */
+    const {loadingPosts, posts} = usePosts()
 
-    async function getPosts() {
-        let response_http = await fetch("https://jsonplaceholder.typicode.com/posts", {method:"GET"});
-        let response = await response_http.json()
-        console.log(response)
-        return response
-    }  
-    getPosts()
-
+    if (loadingPosts) {
+        return (
+            <span>Cargando posteos</span>
+        )
+    }
 
     return (
         <div>
-            <span>PostList completado</span>
+            {
+                posts.map(
+                    (post) => {
+                        return (
+                            <div key={post.id}>
+                                <h2>{post.title}</h2>
+                                <p>{post.body}</p>
+                                <hr/>
+                            </div>
+                        )
+                    }
+                )
+            }
         </div>
     )
 }
