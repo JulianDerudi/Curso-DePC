@@ -1,16 +1,19 @@
+import { useContext } from "react"
 import ContactItem from "../ContactItem/ContactItem"
+import { ContactContext } from "../../Context/ContactContext"
 
 
-export default function ContactList({contactsList, loadingContact}) {
+export default function ContactList() {
+    const { contacts, loadingContacts } = useContext(ContactContext)
     /* RESPONSABILIDAD DE RENDERIZAR LA LISTA DE CONTACTOS */
 
-    if(loadingContact) {
+    if(loadingContacts) {
         return (
-            <div>Loading Contacts...</div>
+            <div>Loading Contacts... </div>
         )
     }
 
-    if(!contactsList || contactsList.length === 0) {
+    if(!contacts || contacts.length === 0) {
         return <div>Conseguite Amigos porfavor</div>
     }
     
@@ -18,7 +21,7 @@ export default function ContactList({contactsList, loadingContact}) {
     return (
         <div>
             {
-                contactsList.map(
+                contacts.map(
                     contact => (
                         <ContactItem key={contact.contact_id} contact={contact} />
                     )

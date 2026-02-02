@@ -4,7 +4,7 @@ export default function HomeScreen() {
     return (
         <div>
             <h1>Tus Contactos</h1>
-            <ContactSidebar />
+            <ContactSidebar/>
         </div>
     )
 }
