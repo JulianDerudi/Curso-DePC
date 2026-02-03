@@ -6,6 +6,7 @@ import ContactScreen from './Screens/ContactScreen/ContactScreen'
 import SupportScreen from './Screens/SupportScreen/SupportScreen'
 import ContactDetailScreen from './Screens/ContactDetailScreen/ContactDetailScreen'
 import ContactContextProvider from './Context/ContactContext'
+import ContactDetailContext from './Context/ContactDetailContext'
 
 function App() {
 
@@ -14,7 +15,9 @@ function App() {
       <Routes>
         <Route element={<ContactContextProvider />}>
           <Route path="/" element={<HomeScreen />}  />
-          <Route path="/contact/:contact_id" element={<ContactDetailScreen />} />
+          <Route path="/contact/:contact_id" element={<ContactDetailContext />}>
+            <Route path="/contact/:contact_id" element={<ContactDetailScreen />} />
+          </Route>
         </Route>
         
         <Route path="/Contact" element={<ContactScreen />} />
