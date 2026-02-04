@@ -4,7 +4,7 @@ import MessagesList from "../../Components/MessagesList/MessagesList";
 import { useContext, useEffect } from "react";
 import { ContactDetailContext } from "../../Context/ContactDetailContext";
 import { ContactContext } from "../../Context/ContactContext";
-
+import NewMessageForm from "../../Components/NewMessageForm/NewMessageForm";
 
 export default function ContactDetailScreen() {
     const contact_params = useParams();
@@ -38,6 +38,7 @@ export default function ContactDetailScreen() {
             <h1>Contact Detail</h1>
             <img src={contact_selected.contact_avatar} alt="contact avatar" />
             <MessagesList  />
+            <NewMessageForm/>
         </div>
     )
 }
