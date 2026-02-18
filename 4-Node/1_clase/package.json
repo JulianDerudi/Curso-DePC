@@ -1,0 +1,14 @@
+{
+  "name": "1_clase",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js"
+  },
+  "keywords": [],
+  "author": "Deru.dev",
+  "license": "ISC"
+}
