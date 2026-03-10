@@ -57,12 +57,10 @@ class Item{
 }
 
 
-class ItemInventario{
+class ItemInventario extends Item{
     static id = 0;
     constructor(titulo, nivel, descripcion, cantidad = 1){
-        this.titulo = titulo;
-        this.nivel = nivel;
-        this.descripcion = descripcion;
+        super(titulo, nivel, descripcion);
         this.cantidad = cantidad;
         this.id = this.id;
         id++;
